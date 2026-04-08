@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .top-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .top-buttons button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+
+        .add {
+            background: #28a745;
+        }
+
+        .edit {
+            background: #ffc107;
+            color: black;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 8px;
+            margin-bottom: 10px;
+            resize: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 8px;
+            background: #007bff;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h3>Feedback</h3>
+
+    <p th:if="${views == null or #lists.isEmpty(views)}">
+        No feedback available
+    </p>
+
+    <div th:each="f : ${views}" class="row">
+        <p th:text="${f.message}"></p>
+        <a th:href="@{/edit/{id}(id=${f.id})}" class="edit-btn">
+            edit
+        </a >
+    </div>
+
+    <form th:action="@{/addFeedback}" method="get">
+        <button type="submit">AddFeedBack</button>
+    </form>
+
+</div>
+
+<style>
+    .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .edit-btn {
+        text-decoration: none;
+        font-size: 16px;
+    }
+</style>
+
+</body>
+</html>

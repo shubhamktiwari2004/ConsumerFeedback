@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            width: 300px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .top-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .top-buttons button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+
+        .add {
+            background: #28a745;
+        }
+
+        .edit {
+            background: #ffc107;
+            color: black;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 8px;
+            margin-bottom: 10px;
+            resize: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 8px;
+            background: #007bff;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h3>Add Feedback</h3>
+
+    <form th:action="@{/addFeedback}" method = "post">
+        <textarea name="message"></textarea>
+        <button type="submit">Add</button>
+    </form>
+
+</div>
+
+</body>
+</html>
