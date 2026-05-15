@@ -2,12 +2,16 @@ package CustomerFeedback.CF;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 @org.springframework.stereotype.Service
-public class Service {
+public class Service implements UserDetailsService {
     @Autowired
     private RegisterRepo registerRepo;
 
@@ -58,5 +62,18 @@ public class Service {
             addFeedbackRepo.updateById(id , message);
 
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        RegisterModel user = registerRepo.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .build();
     }
 }
